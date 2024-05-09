@@ -1,12 +1,6 @@
 import mongoose from 'mongoose';
-const Schema = mongoose.Schema;
 
-interface Dinner {
-    dinnerName: string, 
-    timeCategory: string;
-}
-
-const dinnerSchema = new mongoose.Schema<Dinner>({
+const dinnerSchema = new mongoose.Schema({
     dinnerName: {
         type: String, 
         required: [true, 'Please provide a dinner name'],
@@ -18,6 +12,6 @@ const dinnerSchema = new mongoose.Schema<Dinner>({
     },
 });
 
-const dinnerName = mongoose.models.dinnerName || mongoose.model('dinnerName', dinnerSchema);
+const DinnerName = mongoose.models.dinnerName || mongoose.model('DinnerName', dinnerSchema);
 
-export default dinnerName;
+export default DinnerName;
