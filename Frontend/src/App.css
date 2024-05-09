@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.timeCategorySelector {
+  height: 30px;
+  margin-left: 4px;
+  margin-right: 10px;
+  font-size: 16px;
+}
+
+.dinnerInput {
+  height: 25px;
+  margin-right: 4px;
+  font-size: 16px;
+}

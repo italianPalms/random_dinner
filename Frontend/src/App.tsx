@@ -35,7 +35,7 @@ const Dinner = () => {
     <>
       <h1>Random dinner selector</h1>
       <div className="card">
-        <input
+        <input className='dinnerInput'
           id='dinnerName'
           type='text'
           value={dinner.dinnerName}
@@ -43,22 +43,13 @@ const Dinner = () => {
           placeholder='Enter dinner name'
           required>
         </input>
-        <select value={dinner.timeCategory}
+        <select className='timeCategorySelector' value={dinner.timeCategory}
           onChange={handleSelectChange}>
-          <option value="">Select an time category</option>
+          <option value="">Select a time category</option>
           <option value="Quick">Quick</option>
           <option value="Medium">Medium</option>
           <option value="Slow">Slow</option>
         </select>
-        {/* <input
-          id='timeCategory'
-          type='text'
-          value={selectedOption}
-          onChange={(e) => setSelectedOption(e.target.value)}
-          placeholder='Select an option'
-          readOnly
-          required>
-        </input> */}
         <button onClick={addDinner}>
           Add dinner
         </button>
