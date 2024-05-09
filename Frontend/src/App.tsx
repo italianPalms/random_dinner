@@ -6,26 +6,32 @@ import axios from 'axios';
 
 const Dinner = () => {
 
-  const [dinnerName, setDinnerName] = useState({
+  const [dinner, setDinner] = useState({
     dinnerName: "", 
     timeCategory: "", 
   })
 
+  // const [selectedOption, setSelectedOption] = useState('');
+
   const addDinner = async () => {
     try {
-      if (dinnerName.dinnerName.length === 0) {
+      if (dinner.dinnerName.length === 0) {
         console.log('Enter a dinner name')
         return; 
-      } else if (dinnerName.timeCategory.length === 0) {
+      } else if (dinner.timeCategory.length === 0) {
         console.log('Enter a time category')
         return;
       }
-      const response = await axios.post('http://localhost:4000/addDinner', dinnerName)
+      const response = await axios.post('http://localhost:3000/addDinner', dinner);
       console.log('Dinner added successfully', response.data);
     } catch (err) {
       console.log('Add new dinner failed' + err);
     }
   }
+
+  const handleSelectChange = (e) => {
+    setDinner({...dinner, timeCategory: e.target.value});
+  };
   
   return (
     <>
@@ -41,20 +47,28 @@ const Dinner = () => {
       <div className="card">
         <input
           id='dinnerName'
-          type='string'
-          value={dinnerName.dinnerName}
-          onChange={(e) => setDinnerName({...dinnerName, dinnerName: e.target.value})}
+          type='text'
+          value={dinner.dinnerName}
+          onChange={(e) => setDinner({...dinner, dinnerName: e.target.value})}
           placeholder='Enter dinner name'
           required>
         </input>
-        <input
+        <select value={dinner.timeCategory}
+          onChange={handleSelectChange}>
+          <option value="">Select an time category</option>
+          <option value="Quick">Quick</option>
+          <option value="Medium">Medium</option>
+          <option value="Slow">Slow</option>
+        </select>
+        {/* <input
           id='timeCategory'
-          type='string'
-          value={dinnerName.timeCategory}
-          onChange={(e) => setDinnerName({...dinnerName, timeCategory: e.target.value})}
-          placeholder='Enter time category'
+          type='text'
+          value={selectedOption}
+          onChange={(e) => setSelectedOption(e.target.value)}
+          placeholder='Select an option'
+          readOnly
           required>
-        </input>
+        </input> */}
         <button onClick={addDinner}>
           Add dinner
         </button>

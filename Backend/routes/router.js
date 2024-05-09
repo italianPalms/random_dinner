@@ -2,6 +2,7 @@ import express from 'express';
 import DinnerName from '../models/dinnerModel.js';
 const router = express.Router();
 
+router.use(express.json());
 
 router.post('/addDinner', async (req, res) => {
     try {
@@ -14,8 +15,8 @@ router.post('/addDinner', async (req, res) => {
         //save the dinner name
         const savedDinnerName = await newDinner.save();
         console.log('New dinner is saved in mongoDB' + savedDinnerName);
-    } catch (err
-    ) {
+        res.status(201).json({message: 'Dinner added to mongoDB successfully'});
+    } catch (err) {
         console.log('addDinner failed' + err)
         res.status(500).json({message: 'add new dinner failed'})
     }
