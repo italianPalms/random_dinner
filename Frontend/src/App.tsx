@@ -19,12 +19,12 @@ function App() {
       <h1>Welcome to random recipe</h1>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
-          Add recipe {count}
+          Add dinner {count}
         </button>
       </div>
       <div>
       <button onClick={() => setCount((count) => count + 1)}>
-          Random recipe {count}
+          Random dinner {count}
         </button>
       </div>
     </>
