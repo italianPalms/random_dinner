@@ -6,16 +6,18 @@ const Dinner = () => {
 
   const [dinner, setDinner] = useState({
     dinnerName: "", 
-    timeCategory: "", 
+    timeCategory: "",
   })
 
-  // const [selectedOption, setSelectedOption] = useState('');
+  const [randomDinner, setRandomDinner] = useState({
+    randomDinner: "",
+  })
 
   const addDinner = async () => {
     try {
       if (dinner.dinnerName.length === 0) {
         console.log('Enter a dinner name')
-        return; 
+        return;
       } else if (dinner.timeCategory.length === 0) {
         console.log('Enter a time category')
         return;
@@ -27,8 +29,34 @@ const Dinner = () => {
     }
   }
 
-  const handleSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
+  // Fetch a random dinner from the server
+  const getRandomDinner = async () => {
+    try {
+      const selectedTimeCategory = randomDinner.randomDinner; // Get the selected time category
+
+      const response = await axios.get('/getDinner', {
+        params: {
+          timeCategory: selectedTimeCategory,
+        },
+      });
+      console.log('Random dinner fetched:', response.data);
+
+      // Update the dinner state with the fetched dinner
+      setDinner({
+        dinnerName: response.data.dinnerName, 
+        timeCategory: response.data.timeCategory
+      });
+    } catch (err) {
+      console.error('Error fetching random dinner:', err);
+    }
+  };
+
+  const handleAddDinner = (e: ChangeEvent<HTMLSelectElement>) => {
     setDinner({...dinner, timeCategory: e.target.value});
+  };
+
+  const handleRandomDinner = (e: ChangeEvent<HTMLSelectElement>) => {
+    setRandomDinner({...randomDinner, randomDinner: e.target.value});
   };
   
   return (
@@ -44,7 +72,7 @@ const Dinner = () => {
           required>
         </input>
         <select className='timeCategorySelector' value={dinner.timeCategory}
-          onChange={handleSelectChange}>
+          onChange={handleAddDinner}>
           <option value="">Select a time category</option>
           <option value="Quick">Quick</option>
           <option value="Medium">Medium</option>
@@ -55,7 +83,14 @@ const Dinner = () => {
         </button>
       </div>
       <div>
-        <button onClick={() => console.log('random dinner button clicked')}>
+        <select className='timeCategorySelector' value={randomDinner.randomDinner}
+          onChange={handleRandomDinner}>
+            <option value="">Select a time category</option>
+            <option value="Quick">Quick</option>
+            <option value="Medium">Medium</option>
+            <option value="Slow">Slow</option>
+          </select>
+        <button onClick={getRandomDinner}>
           Random dinner
         </button>
       </div>
@@ -63,4 +98,4 @@ const Dinner = () => {
   )
 }
 
-export default Dinner
+export default Dinner;
