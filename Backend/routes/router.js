@@ -1,6 +1,5 @@
 import express from 'express';
 import DinnerName from '../models/dinnerModel.js';
-import { json } from 'stream/consumers';
 const router = express.Router();
 
 router.use(express.json());
@@ -25,14 +24,14 @@ router.post('/addDinner', async (req, res) => {
 
 router.get('/getDinner', async (req, res) => {
     try {
-        const timeCategory = req.params.timeCategory;
+        const timeCategory = req.query.timeCategory;
         //Query the database for a random dinner with the specified time category
         const randomDinner = await DinnerName.aggregate([
             { $match: { timeCategory: timeCategory } },
             { $sample: { size: 1 } },
         ]);
 
-        if (randomDinner.lenght === 0) {
+        if (randomDinner.length === 0) {
             res.status(404).json({ message: "No dinner found for the specified time category" });
         } else {
             res.status(200).json(randomDinner[0]);

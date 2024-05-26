@@ -10,6 +10,7 @@ const dinnerSchema = new mongoose.Schema({
         type: String, 
         required: [true, 'Please provide a time category'],
     },
+    //TODO healthiness 
 });
 
 const DinnerName = mongoose.models.dinnerName || mongoose.model('DinnerName', dinnerSchema);

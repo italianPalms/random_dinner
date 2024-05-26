@@ -9,9 +9,7 @@ const Dinner = () => {
     timeCategory: "",
   })
 
-  const [randomDinner, setRandomDinner] = useState({
-    randomDinner: "",
-  })
+  const [randomDinner, setRandomDinner] = useState("");
 
   const addDinner = async () => {
     try {
@@ -32,11 +30,11 @@ const Dinner = () => {
   // Fetch a random dinner from the server
   const getRandomDinner = async () => {
     try {
-      const selectedTimeCategory = randomDinner.randomDinner; // Get the selected time category
+      const selectedTimeCategory = randomDinner; // Get the selected time category
 
-      const response = await axios.get('/getDinner', {
+      const response = await axios.get('http://localhost:3000/getDinner', {
         params: {
-          timeCategory: selectedTimeCategory,
+          timeCategory: selectedTimeCategory
         },
       });
       console.log('Random dinner fetched:', response.data);
@@ -56,7 +54,7 @@ const Dinner = () => {
   };
 
   const handleRandomDinner = (e: ChangeEvent<HTMLSelectElement>) => {
-    setRandomDinner({...randomDinner, randomDinner: e.target.value});
+    setRandomDinner(e.target.value);
   };
   
   return (
@@ -83,7 +81,7 @@ const Dinner = () => {
         </button>
       </div>
       <div>
-        <select className='timeCategorySelector' value={randomDinner.randomDinner}
+        <select className='timeCategorySelector' value={randomDinner}
           onChange={handleRandomDinner}>
             <option value="">Select a time category</option>
             <option value="Quick">Quick</option>
@@ -94,6 +92,7 @@ const Dinner = () => {
           Random dinner
         </button>
       </div>
+      //TODO Add selector for healthiness
     </>
   )
 }
