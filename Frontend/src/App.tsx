@@ -92,6 +92,8 @@ const Dinner = () => {
           Random dinner
         </button>
       </div>
+
+      
       {/* //TODO - Deploy the app to vercel */}
       {/* //TODO Add selector for healthiness */}
       {/* //TODO - Add functionality to the user can get four random dinners (covering the whole week), and three of them needs to be healthy (needs to be connected to the healthieness attribute) - decide if this should be a new page, or just divide this page into three sections - one for adding, one for getting one random dinner from the timeCategory selected, and one section where you get random dinners for the whole week */}
