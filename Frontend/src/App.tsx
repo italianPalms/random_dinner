@@ -48,11 +48,6 @@ const Dinner = () => {
       });
       console.log('Random dinner fetched:', response.data);
 
-      // Update the dinner state with the fetched dinner
-      // setDinner({
-      //   dinnerName: response.data.dinnerName, 
-      //   timeCategory: response.data.timeCategory
-      // });
       setFetchedDinner(response.data);
     } catch (err) {
       console.error('Error fetching random dinner:', err);
