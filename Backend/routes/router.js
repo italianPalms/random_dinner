@@ -42,4 +42,14 @@ router.get('/getDinner', async (req, res) => {
     }
 })
 
+router.get('/getAllDinners', async (req, res) => {
+    try {
+        const allDinners = await DinnerName.find();
+        res.json(allDinners);
+    } catch (err) {
+        console.log('Failed to fetch all dinners' + err);
+        res.status(500).json({message: 'Failed to fetch all dinners'});
+    }
+})
+
 export default router;
