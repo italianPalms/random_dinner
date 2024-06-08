@@ -7,7 +7,7 @@ import cors from 'cors';
 dotenv.config();
 
 const app = express();
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 
 //connect to mongoDB
 mongoose.connect(process.env.MONGO_URI)
@@ -22,7 +22,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/api', router);
+app.use('/', router);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
