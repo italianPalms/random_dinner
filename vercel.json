@@ -6,12 +6,8 @@
             "use": "@vercel/node"
         },
         {
-            "src": "index.html", 
+            "src": "dist/**", 
             "use": "@vercel/static"
-        }, 
-        {
-            "src": "Frontend/src/main.tsx",
-            "use": "@vercel/node"
         }
     ],
     "routes": [
@@ -20,12 +16,8 @@
             "dest": "/Backend/server.js"
         },
         {
-            "src": "/static/(.*)",
-            "dest": "/Frontend/src/main.tsx"
-        },
-        {
             "src": "/(.*)", 
-            "dest": "/index.html"
+            "dest": "/dist/$1"
         }
     ]
 }

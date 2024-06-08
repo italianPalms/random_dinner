@@ -20,14 +20,9 @@ const corsOptions = {
     credentials: true, 
 }
 
-app.get('/api', (req, res) => {
-    res.send('Hello from API!');
-  });
-
 app.use(cors(corsOptions));
-app.use('/', router);
-
 app.use(express.json());
+app.use('/api', router);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)
