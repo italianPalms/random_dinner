@@ -16,7 +16,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 //CORS configuration
 const corsOptions = {
-    origin: ['http://localhost:5173', 'https://random-dinner.vercel.app'],
+    origin: ['http://localhost:5173', 'https://random-dinner.vercel.app/'],
     credentials: true, 
 }
 
