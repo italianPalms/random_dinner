@@ -1,6 +1,5 @@
 {
     "version": 2,
-    "name": "random-dinner-backend",
     "builds": [
       {
         "src": "server.js",
