@@ -1,0 +1,19 @@
+{
+    "projects": [
+      {
+        "name": "backend",
+        "root": "Backend",
+        "routes": [
+          { "src": "/api/(.*)", "dest": "/api/$1" }
+        ]
+      },
+      {
+        "name": "frontend",
+        "root": ".",
+        "routes": [
+          { "src": "/(.*)", "dest": "/" }
+        ]
+      }
+    ]
+  }
+  
