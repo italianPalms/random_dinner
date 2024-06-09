@@ -1,15 +1,16 @@
 {
     "version": 2,
+    "name": "random-dinner-backend",
     "builds": [
       {
-        "src": "server.js",
+        "src": "Backend/server.js",
         "use": "@vercel/node"
       }
     ],
     "routes": [
       {
         "src": "/(.*)",
-        "dest": "/"
+        "dest": "Backend/server.js"
       }
     ]
   }
