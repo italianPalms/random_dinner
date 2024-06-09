@@ -8,8 +8,8 @@ interface Dinner {
   timeCategory: string;
 }
 
-const API_BASE_URL = 'https://random-dinner-backend.vercel.app'
-// const API_BASE_URL = 'http://localhost:3000'
+// const API_BASE_URL = 'https://random-dinner-backend.vercel.app'
+const API_BASE_URL = 'http://localhost:3000'
 
 const Dinner = () => {
 
