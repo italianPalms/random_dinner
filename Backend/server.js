@@ -22,7 +22,7 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
-app.use('/', router);
+app.use('/api', router); //api here may break the vercel application
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

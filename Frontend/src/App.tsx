@@ -8,6 +8,8 @@ interface Dinner {
   timeCategory: string;
 }
 
+const API_BASE_URL = 'https://random-dinner-backend.vercel.app/'
+
 const Dinner = () => {
 
   const [dinner, setDinner] = useState<Dinner>({
@@ -29,7 +31,7 @@ const Dinner = () => {
         console.log('Enter a time category')
         return;
       }
-      const response = await axios.post('http://localhost:3000/addDinner', dinner);
+      const response = await axios.post(`${API_BASE_URL}/addDinner`, dinner);
       console.log('Dinner added successfully', response.data);
     } catch (err) {
       console.log('Add new dinner failed' + err);
@@ -41,7 +43,7 @@ const Dinner = () => {
     try {
       const selectedTimeCategory = randomDinner; // Get the selected time category
 
-      const response = await axios.get('http://localhost:3000/getDinner', {
+      const response = await axios.get(`${API_BASE_URL}/getDinner`, {
         params: {
           timeCategory: selectedTimeCategory
         },
@@ -65,7 +67,7 @@ const Dinner = () => {
 
   const fetchAllDinners = async () => {
     try {
-      const response = await axios.get('http://localhost:3000/getAllDinners');
+      const response = await axios.get(`${API_BASE_URL}/getAllDinners`);
       console.log('All dinners fetched', response.data)
       setDinners(response.data);
     } catch (err) {
