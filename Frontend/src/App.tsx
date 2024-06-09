@@ -38,7 +38,7 @@ const Dinner = () => {
     }
   }
 
-  // Fetch a random dinner from the server
+    // Fetch a random dinner from the server
   const getRandomDinner = async () => {
     try {
       const selectedTimeCategory = randomDinner; // Get the selected time category
