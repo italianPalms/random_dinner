@@ -95,7 +95,7 @@ const Dinner = () => {
           <option value="Medium">Medium</option>
           <option value="Slow">Slow</option>
         </select>
-        <button onClick={addDinner}>
+        <button className='dinnerButton' onClick={addDinner}>
           Add dinner
         </button>
       </div>
@@ -107,7 +107,7 @@ const Dinner = () => {
             <option value="Medium">Medium</option>
             <option value="Slow">Slow</option>
           </select>
-        <button onClick={getRandomDinner}>
+        <button className='dinnerButton' onClick={getRandomDinner}>
           Random dinner
         </button>
         </div>
@@ -119,7 +119,7 @@ const Dinner = () => {
           </div>
         )}
       <div className='card'>
-        <button
+        <button className='dinnerButton'
           onClick={fetchAllDinners}
         >See all dinners</button>
           {dinners.map((dinner) => (
