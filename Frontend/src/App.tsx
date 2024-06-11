@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import { useState } from 'react'
 import './App.css'
 import axios from 'axios';
 
@@ -22,11 +22,13 @@ const Dinner = () => {
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const [fetchedDinner, setFetchedDinner] = useState<Dinner | null>(null);
   const [dinnerNameBorderColor, setDinnerNameBorderColor] = useState(false);
-  const [selectTimeCategory, setSelectTimeCategory] = useState(false);
+  const [selectTimeCategoryAdd, setSelectTimeCategoryAdd] = useState(false);
+  const [selectTimeCategoryRandom, setSelectTimeCategoryRandom] = useState(false);
 
   const dinnerNameColor = dinnerNameBorderColor ? "border-red-500" : "";
-  const timeCategoryColor = selectTimeCategory ? "border-red-500" : "";
-  
+  const timeCategoryColorAdd = selectTimeCategoryAdd ? "border-red-500" : "";
+  const timeCategoryColorRandom = selectTimeCategoryRandom ? "border-red-500" : "";
+
   const addDinner = async () => {
     try {
       if (dinner.dinnerName.length === 0) {
@@ -34,7 +36,7 @@ const Dinner = () => {
         console.log('Enter a dinner name')
         return;
       } else if (dinner.timeCategory.length === 0) {
-        setSelectTimeCategory(true)
+        setSelectTimeCategoryAdd(true)
         console.log('Enter a time category')
         return;
       }
@@ -49,28 +51,22 @@ const Dinner = () => {
   const getRandomDinner = async () => {
     try {
       const selectedTimeCategory = randomDinner; // Get the selected time category
-
+      if (!randomDinner) {
+        setSelectTimeCategoryRandom(true)
+      }
       const response = await axios.get(`${API_BASE_URL}/getDinner`, {
         params: {
           timeCategory: selectedTimeCategory
         },
       });
       console.log('Random dinner fetched:', response.data);
-
       setFetchedDinner(response.data);
+      setSelectTimeCategoryRandom(false);
     } catch (err) {
+      setSelectTimeCategoryRandom(true)
       console.error('Error fetching random dinner:', err);
     }
   };
-
-  const handleAddDinner = (e: ChangeEvent<HTMLSelectElement>) => {
-    setDinner({...dinner, timeCategory: e.target.value});
-  };
-
-  const handleRandomDinner = (e: ChangeEvent<HTMLSelectElement>) => {
-    setRandomDinner(e.target.value);
-  };
-
 
   const fetchAllDinners = async () => {
     try {
@@ -97,9 +93,15 @@ const Dinner = () => {
           placeholder='Enter dinner name'
           required>
         </input>
-        <select className={`timeCategorySelector ${timeCategoryColor}`}
+        <select className={`timeCategorySelector ${timeCategoryColorAdd}`}
           value={dinner.timeCategory}
-          onChange={handleAddDinner}>
+          onChange={(e) => {
+            setDinner({...dinner, timeCategory: e.target.value});
+            if(['Quick', 'Medium', 'Slow'].includes(e.target.value)) {
+              setSelectTimeCategoryAdd(false);
+            }
+          }}
+          >
           <option value="">Select a time category</option>
           <option value="Quick">Quick</option>
           <option value="Medium">Medium</option>
@@ -110,8 +112,14 @@ const Dinner = () => {
         </button>
       </div>
       <div>
-        <select className='timeCategorySelector' value={randomDinner}
-          onChange={handleRandomDinner}>
+        <select className={`timeCategorySelector ${timeCategoryColorRandom}`}
+          value={randomDinner}
+          onChange={(e) => {
+            setRandomDinner(e.target.value);
+            if(['Quick', 'Medium', 'Slow'].includes(e.target.value)) {
+              setSelectTimeCategoryRandom(false);
+            }
+          }}>
             <option value="">Select a time category</option>
             <option value="Quick">Quick</option>
             <option value="Medium">Medium</option>
@@ -140,12 +148,10 @@ const Dinner = () => {
           ))}
       </div>
 
-
       {/* //TODO - Deploy the app to vercel */}
       {/* //TODO Add selector for healthiness */}
       {/* //TODO - Add functionality to the user can get four random dinners (covering the whole week), and three of them needs to be healthy (needs to be connected to the healthieness attribute) - decide if this should be a new page, or just divide this page into three sections - one for adding, one for getting one random dinner from the timeCategory selected, and one section where you get random dinners for the whole week */}
     </>
   )
 }
-
 export default Dinner;
