@@ -28,13 +28,14 @@ router.get('/getDinner', async (req, res) => {
         //Query the database for a random dinner with the specified time category
         const randomDinner = await DinnerName.aggregate([
             { $match: { timeCategory: timeCategory } },
-            { $sample: { size: 1 } },
+            { $sample: { size: 4 } },
         ]);
 
         if (randomDinner.length === 0) {
             res.status(404).json({ message: "No dinner found for the specified time category" });
         } else {
-            res.status(200).json(randomDinner[0]);
+            res.status(200).json(randomDinner);
+            console.log(randomDinner)
         }
     } catch (err) {
         console.error('failed to fetch random dinner', err);

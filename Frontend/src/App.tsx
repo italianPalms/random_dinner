@@ -18,9 +18,10 @@ const Dinner = () => {
     dinnerName: "", 
     timeCategory: "",
   });
+  
   const [randomDinner, setRandomDinner] = useState<string>("");
   const [dinners, setDinners] = useState<Dinner[]>([]);
-  const [fetchedDinner, setFetchedDinner] = useState<Dinner | null>(null);
+  const [fetchedDinners, setFetchedDinners] = useState<Dinner[]>([]);
 
   
   const addDinner = async () => {
@@ -51,7 +52,7 @@ const Dinner = () => {
       });
       console.log('Random dinner fetched:', response.data);
 
-      setFetchedDinner(response.data);
+      setFetchedDinners(Array.isArray(response.data) ? response.data :  []);
     } catch (err) {
       console.error('Error fetching random dinner:', err);
     }
@@ -111,11 +112,17 @@ const Dinner = () => {
           Random dinner
         </button>
         </div>
-        {fetchedDinner && (
+        {fetchedDinners.length > 0 && (
           <div>
             <h2>Random dinner</h2>
-            <p>Name: <strong>{fetchedDinner.dinnerName}</strong></p>
-            <p>Time Category: <strong>{fetchedDinner.timeCategory}</strong></p>
+            <ul>
+              {fetchedDinners.map((dinner) => (
+                <li key={dinner._id}>
+                  <p>Name: <strong>{dinner.dinnerName}</strong></p>
+                  <p>Time Category: <strong>{dinner.timeCategory}</strong></p>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
       <div className='card'>
