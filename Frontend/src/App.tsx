@@ -21,14 +21,20 @@ const Dinner = () => {
   const [randomDinner, setRandomDinner] = useState<string>("");
   const [dinners, setDinners] = useState<Dinner[]>([]);
   const [fetchedDinner, setFetchedDinner] = useState<Dinner | null>(null);
+  const [dinnerNameBorderColor, setDinnerNameBorderColor] = useState(false);
+  const [selectTimeCategory, setSelectTimeCategory] = useState(false);
 
+  const dinnerNameColor = dinnerNameBorderColor ? "border-red-500" : "";
+  const timeCategoryColor = selectTimeCategory ? "border-red-500" : "";
   
   const addDinner = async () => {
     try {
       if (dinner.dinnerName.length === 0) {
+        setDinnerNameBorderColor(true);
         console.log('Enter a dinner name')
         return;
       } else if (dinner.timeCategory.length === 0) {
+        setSelectTimeCategory(true)
         console.log('Enter a time category')
         return;
       }
@@ -80,15 +86,19 @@ const Dinner = () => {
     <>
       <h1>Random dinner selector</h1>
       <div className="card">
-        <input className='dinnerInput'
+        <input className={`dinnerInput ${dinnerNameColor}`}
           id='dinnerName'
           type='text'
           value={dinner.dinnerName}
-          onChange={(e) => setDinner({...dinner, dinnerName: e.target.value})}
+          onChange={(e) => {
+            setDinnerNameBorderColor(e.target.value.trim() === '');
+            setDinner({...dinner, dinnerName: e.target.value});
+          }}
           placeholder='Enter dinner name'
           required>
         </input>
-        <select className='timeCategorySelector' value={dinner.timeCategory}
+        <select className={`timeCategorySelector ${timeCategoryColor}`}
+          value={dinner.timeCategory}
           onChange={handleAddDinner}>
           <option value="">Select a time category</option>
           <option value="Quick">Quick</option>
